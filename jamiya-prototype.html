@@ -1,0 +1,361 @@
+<title>Jamiya</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F3F6F3; --surface:#FFFFFF; --surface2:#E9EFEA; --ink:#14201B; --ink2:#5E6C65; --line:#D9E1DB;
+  --accent:#0E6B54; --accent-ink:#FFFFFF; --accent-soft:#D8ECE3;
+  --gold:#B07F24; --gold-soft:#F7EBD2;
+  --ok:#2C8A5B; --ok-soft:#DCEFE3; --warn:#C0741A; --warn-soft:#F9EAD5; --bad:#B4413A; --bad-soft:#F6DCDA;
+  --shadow:0 8px 24px rgba(20,32,27,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1512; --surface:#161E1A; --surface2:#1E2823; --ink:#E8EEEA; --ink2:#98A69E; --line:#28342E;
+    --accent:#3FB08A; --accent-ink:#08130E; --accent-soft:#1A3A2F;
+    --gold:#DBAA4A; --gold-soft:#3A2E15;
+    --ok:#4FC28A; --ok-soft:#173327; --warn:#E39C3E; --warn-soft:#3A2A13; --bad:#E36B62; --bad-soft:#3E1F1D;
+    --shadow:0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1512; --surface:#161E1A; --surface2:#1E2823; --ink:#E8EEEA; --ink2:#98A69E; --line:#28342E;
+  --accent:#3FB08A; --accent-ink:#08130E; --accent-soft:#1A3A2F;
+  --gold:#DBAA4A; --gold-soft:#3A2E15;
+  --ok:#4FC28A; --ok-soft:#173327; --warn:#E39C3E; --warn-soft:#3A2A13; --bad:#E36B62; --bad-soft:#3E1F1D;
+  --shadow:0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Sora","IBM Plex Sans",system-ui,sans-serif;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:24px;font-weight:600}
+h2{font-size:17px;font-weight:600}
+h3{font-size:14px;font-weight:600}
+p{margin:0}
+button{font:inherit;cursor:pointer}
+input,select{font:inherit}
+.num{font-variant-numeric:tabular-nums}
+.app{max-width:430px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;background:var(--bg)}
+@media (min-width:600px){.app{border-left:1px solid var(--line);border-right:1px solid var(--line)}}
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px}
+.brand{display:flex;align-items:center;gap:9px;font-family:"Sora",sans-serif;font-weight:700;font-size:19px;letter-spacing:-.02em}
+.mark{width:30px;height:30px;border-radius:9px;background:var(--accent);display:grid;place-items:center}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:600;font-size:13px}
+main{flex:1;padding:8px 16px 24px}
+.screen{display:flex;flex-direction:column;gap:16px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.muted{color:var(--ink2)}
+.small{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.hero{background:var(--accent);color:var(--accent-ink);border:0;box-shadow:var(--shadow)}
+.hero .eyebrow{color:var(--accent-ink);opacity:.75}
+.hero .big{font-family:"Sora",sans-serif;font-size:30px;font-weight:600;letter-spacing:-.02em;margin-top:4px}
+.hero .row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:10px}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:600;font-size:15px;background:var(--accent);color:var(--accent-ink);width:100%}
+.btn.secondary{background:var(--surface2);color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--accent);padding:8px 0;width:auto}
+.btn.light{background:var(--accent-ink);color:var(--accent);width:auto;padding:10px 16px}
+.btn:disabled{opacity:.7;cursor:default}
+.btn:focus-visible,.tab:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.tile .v{font-family:"Sora",sans-serif;font-size:20px;font-weight:600;margin-top:2px}
+.tile.gold{background:var(--gold-soft);border-color:transparent}
+.tile.gold .v{color:var(--gold)}
+.list{display:flex;flex-direction:column;gap:10px}
+.circle-row{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left;width:100%;color:inherit}
+.circle-row .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-family:"Sora",sans-serif;font-weight:600;flex-shrink:0}
+.circle-row .body{flex:1;min-width:0}
+.circle-row .name{font-weight:600}
+.circle-row .meta{font-size:13px;color:var(--ink2);margin-top:2px}
+.chev{color:var(--ink2)}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 9px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.gold{background:var(--gold-soft);color:var(--gold)}
+.pill.soft{background:var(--accent-soft);color:var(--accent)}
+.pill.grey{background:var(--surface2);color:var(--ink2)}
+.progress{height:6px;border-radius:99px;background:var(--surface2);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.trust{display:flex;align-items:center;gap:14px}
+.ring{width:56px;height:56px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--surface2) 0);display:grid;place-items:center;flex-shrink:0}
+.ring b{width:44px;height:44px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-family:"Sora",sans-serif;font-size:15px}
+.back{display:flex;align-items:center;gap:6px;color:var(--accent);font-weight:600;background:none;border:0;padding:0}
+.sched{display:flex;flex-direction:column}
+.slot{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.slot:first-child{border-top:0}
+.slot .n{width:30px;height:30px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--ink2)}
+.slot.done .n{background:var(--ok-soft);color:var(--ok)}
+.slot.me{background:var(--gold-soft);margin:0 -16px;padding:10px 16px;border-radius:12px;border-top:0}
+.slot.me .n{background:var(--gold);color:#fff}
+.slot .who{font-weight:600}
+.slot .when{font-size:13px;color:var(--ink2)}
+.slot .amt{text-align:right;font-weight:600}
+.gridwrap{overflow-x:auto;margin:0 -16px;padding:0 16px}
+table.ledger{border-collapse:separate;border-spacing:0;font-size:12px}
+.ledger th{font-weight:500;color:var(--ink2);padding:4px 5px;text-align:center;white-space:nowrap}
+.ledger th.cur{color:var(--accent);font-weight:600}
+.ledger td{padding:4px 5px;text-align:center}
+.ledger td.name{text-align:left;font-weight:500;white-space:nowrap;position:sticky;left:0;background:var(--surface);padding-right:10px}
+.ledger tr.me td.name{color:var(--gold)}
+.dot{width:16px;height:16px;border-radius:50%;display:inline-block;background:var(--surface2);vertical-align:middle;border:2px solid transparent}
+.dot.paid{background:var(--ok)}
+.dot.late{background:var(--warn)}
+.dot.missed{background:var(--bad)}
+.dot.due{background:var(--surface);border-color:var(--warn)}
+.dot.recv{box-shadow:0 0 0 2px var(--gold)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink2);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend .dot{width:12px;height:12px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line)}
+.kv:first-child{border-top:0}
+.kv b{font-weight:600;text-align:right}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:600}
+.field input,.field select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:flex;gap:6px;background:var(--surface2);padding:4px;border-radius:12px}
+.seg button{flex:1;border:0;border-radius:9px;padding:8px;background:transparent;color:var(--ink2);font-weight:600;font-size:13px}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.summary{background:var(--accent-soft);border-radius:14px;padding:14px;color:var(--ink)}
+.summary .kv{border-top-color:rgba(0,0,0,.06)}
+.tabs{position:sticky;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface);border-top:1px solid var(--line);padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px))}
+.tab{border:0;background:none;color:var(--ink2);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;padding:4px}
+.tab.on{color:var(--accent)}
+.tab svg{width:22px;height:22px}
+.method{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);width:100%;text-align:left;color:inherit}
+.method.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.method .box{width:36px;height:26px;border-radius:6px;background:var(--surface2);display:grid;place-items:center;font-size:10px;font-weight:700;color:var(--ink2);flex-shrink:0}
+.success{text-align:center;padding:28px 8px 8px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.check{width:64px;height:64px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center}
+.receipt{width:100%;text-align:left}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:13px;font-weight:600;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.show{opacity:1}
+.note{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink2)}
+.note svg{flex-shrink:0;margin-top:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="brand"><span class="mark"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#fff" stroke-width="2"/><circle cx="8" cy="8" r="1.8" fill="#fff"/></svg></span>Jamiya</div>
+    <div class="avatar">SK</div>
+  </header>
+  <main>
+    <section id="s-home" class="screen"></section>
+    <section id="s-circles" class="screen" hidden></section>
+    <section id="s-circle" class="screen" hidden></section>
+    <section id="s-create" class="screen" hidden></section>
+    <section id="s-pay" class="screen" hidden></section>
+  </main>
+  <nav class="tabs">
+    <button class="tab on" id="tab-home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+    <button class="tab" id="tab-circles" onclick="go('circles')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>Circles</button>
+    <button class="tab" id="tab-create" onclick="go('create')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Create</button>
+  </nav>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const ME='Sultan';
+const TODAY=new Date(2026,8,20);
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const fmt=n=>'AED '+n.toLocaleString('en-US');
+
+// Sample circles. Payout order is fixed at launch: order[] is slot 1..N.
+const circles=[
+  {id:'fam',name:'Al Mansoori Family',short:'AM',type:'Private',amount:2000,freq:'Monthly',startY:2026,startM:5,dueDay:25,cycle:4,feePct:1,
+   order:['Mariam','Ahmed','Noura','Saeed','Fatima','Hessa','Sultan','Khalid','Omar','Latifa'],
+   exceptions:{3:{Khalid:'late'}}, current:{paid:['Mariam','Ahmed','Noura','Fatima','Hessa','Omar']}},
+  {id:'office',name:'Office Crew',short:'OC',type:'Private',amount:1000,freq:'Monthly',startY:2026,startM:7,dueDay:28,cycle:2,feePct:1,
+   order:['Dana','Yousef','Lina','Rashid','Sultan','Tariq'],
+   exceptions:{}, current:{paid:['Sultan','Dana','Lina','Tariq']}}
+];
+const paidNow={}; // circle id -> true after the user pays this cycle
+
+function cycleDate(c,n){return new Date(c.startY,c.startM+n-1,c.dueDay);}
+function dlabel(d){return d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear();}
+function mlabel(d){return MONTHS[d.getMonth()]+' '+String(d.getFullYear()).slice(2);}
+function status(c,member,n){
+  if(n<c.cycle){const e=c.exceptions[n]||{};return e[member]||'paid';}
+  if(n===c.cycle){if(member===ME&&paidNow[c.id])return 'paid';return c.current.paid.includes(member)?'paid':'due';}
+  return 'future';
+}
+function mySlot(c){return c.order.indexOf(ME)+1;}
+function daysUntil(d){return Math.round((d-TODAY)/864e5);}
+function pot(c){return c.amount*c.order.length;}
+
+function go(name,arg){
+  document.querySelectorAll('.screen').forEach(s=>s.hidden=true);
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  const tab={home:'home',circles:'circles',circle:'circles',create:'create',pay:'home'}[name];
+  document.getElementById('tab-'+tab).classList.add('on');
+  const el=document.getElementById('s-'+name);
+  ({home:renderHome,circles:renderCircles,circle:renderCircle,create:renderCreate,pay:renderPay})[name](el,arg);
+  el.hidden=false; window.scrollTo(0,0);
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+
+function renderHome(el){
+  const due=circles.filter(c=>status(c,ME,c.cycle)==='due').sort((a,b)=>cycleDate(a,a.cycle)-cycleDate(b,b.cycle));
+  const next=due[0];
+  const payouts=circles.map(c=>({c,slot:mySlot(c),d:cycleDate(c,mySlot(c))})).filter(x=>x.slot>=x.c.cycle).sort((a,b)=>a.d-b.d);
+  const np=payouts[0];
+  const paidIn=circles.reduce((s,c)=>s+c.amount*((c.cycle-1)+(status(c,ME,c.cycle)==='paid'?1:0)),0);
+  el.innerHTML=`
+    <div><p class="eyebrow">Good morning</p><h1>${ME}, you're on track.</h1></div>
+    ${next?`<div class="card hero">
+      <p class="eyebrow">Next payment · ${next.name}</p>
+      <div class="big num">${fmt(next.amount)}</div>
+      <div class="row"><div class="small" style="opacity:.85">Due ${dlabel(cycleDate(next,next.cycle))} · in ${daysUntil(cycleDate(next,next.cycle))} days<br>Cycle ${next.cycle} of ${next.order.length}</div>
+      <button class="btn light" onclick="go('pay','${next.id}')">Pay now</button></div>
+    </div>`:`<div class="card hero"><p class="eyebrow">Payments</p><div class="big">All paid up</div><p class="small" style="opacity:.85;margin-top:6px">Nothing due this cycle. Next contribution in ${daysUntil(cycleDate(circles[0],circles[0].cycle+1))} days.</p></div>`}
+    <div class="tiles">
+      <div class="tile gold"><p class="eyebrow">Your next payout</p><div class="v num">${fmt(pot(np.c))}</div><p class="small muted">${dlabel(np.d)} · ${np.c.name}<br>${np.slot-np.c.cycle} cycles away</p></div>
+      <div class="tile"><p class="eyebrow">Paid in so far</p><div class="v num">${fmt(paidIn)}</div><p class="small muted">Across ${circles.length} circles<br>14 on-time payments</p></div>
+    </div>
+    <div class="card trust">
+      <div class="ring" style="--p:92"><b class="num">92</b></div>
+      <div><h3>Trust score: Excellent</h3><p class="small muted">14 of 14 payments on time. A high score earns earlier slots in new circles.</p></div>
+    </div>
+    <div>
+      <div class="sec-head"><h2>My circles</h2><button class="btn ghost" onclick="go('circles')">See all</button></div>
+      <div class="list" style="margin-top:10px">${circles.map(circleRow).join('')}</div>
+    </div>
+    <div class="card" style="border-style:dashed">
+      <h3>Jamiya Match <span class="pill grey">Coming soon</span></h3>
+      <p class="small muted" style="margin-top:4px">Join a circle of verified members matched by amount and duration when your own group is not enough.</p>
+    </div>`;
+}
+function circleRow(c){
+  const st=status(c,ME,c.cycle);const d=cycleDate(c,c.cycle);
+  const pill=st==='paid'?'<span class="pill ok">Paid</span>':`<span class="pill warn">Due ${d.getDate()} ${MONTHS[d.getMonth()]}</span>`;
+  return `<button class="circle-row" onclick="go('circle','${c.id}')"><span class="ic" style="background:var(--accent-soft);color:var(--accent)">${c.short}</span>
+    <span class="body"><div class="name">${c.name}</div><div class="meta num">${fmt(c.amount)} ${c.freq.toLowerCase()} · ${c.order.length} members · cycle ${c.cycle}/${c.order.length}</div></span>${pill}<span class="chev">›</span></button>`;
+}
+function renderCircles(el){
+  el.innerHTML=`<h1>Circles</h1><div class="list">${circles.map(circleRow).join('')}</div>
+    <button class="btn secondary" onclick="go('create')">Start a new circle</button>
+    <div class="card"><h3>Join with a code</h3><p class="small muted" style="margin:4px 0 10px">Someone invited you? Enter their circle code.</p><div class="field"><input id="join-code" placeholder="e.g. JMY-4K2T"></div><button class="btn" style="margin-top:10px" onclick="toast('Code not found in this demo')">Join circle</button></div>`;
+}
+
+function renderCircle(el,id){
+  const c=circles.find(x=>x.id===id);const N=c.order.length;const slot=mySlot(c);
+  const paidCount=c.order.filter(m=>status(c,m,c.cycle)==='paid').length;
+  const sched=c.order.map((m,i)=>{const n=i+1;const d=cycleDate(c,n);const cls=(n<c.cycle?'done ':'')+(m===ME?'me':'');
+    const tag=n<c.cycle?'<span class="pill ok">Paid out</span>':n===c.cycle?'<span class="pill soft">This cycle</span>':m===ME?'<span class="pill gold">You</span>':'';
+    return `<div class="slot ${cls}"><span class="n num">${n}</span><div><div class="who">${m===ME?'You':m}</div><div class="when">${dlabel(d)}</div></div><div class="amt num">${fmt(pot(c))}<div>${tag}</div></div></div>`;}).join('');
+  const head=c.order.map((_,i)=>`<th class="${i+1===c.cycle?'cur':''}">${i+1}<br><span style="font-weight:400">${mlabel(cycleDate(c,i+1))}</span></th>`).join('');
+  const rows=c.order.map((m,si)=>`<tr class="${m===ME?'me':''}"><td class="name">${m===ME?'You':m} <span class="muted">#${si+1}</span></td>${c.order.map((_,ci)=>{const n=ci+1;const s=status(c,m,n);const recv=si===ci?' recv':'';return `<td><span class="dot ${s}${recv}" title="${m} · cycle ${n} · ${s}"></span></td>`;}).join('')}</tr>`).join('');
+  const myst=status(c,ME,c.cycle);
+  el.innerHTML=`
+    <button class="back" onclick="go('circles')">‹ Circles</button>
+    <div><span class="pill soft">${c.type} circle</span><h1 style="margin-top:8px">${c.name}</h1><p class="muted num">${fmt(c.amount)} ${c.freq.toLowerCase()} · ${N} members · ${fmt(pot(c))} pot</p></div>
+    <div class="card">
+      <div class="sec-head"><h3>Cycle ${c.cycle} of ${N}</h3><span class="small muted num">${paidCount}/${N} paid</span></div>
+      <div class="progress" style="margin:10px 0"><i style="width:${paidCount/N*100}%"></i></div>
+      <p class="small muted">Due ${dlabel(cycleDate(c,c.cycle))}. ${c.order[c.cycle-1]} receives ${fmt(pot(c))} once everyone has paid.</p>
+      ${myst==='due'?`<button class="btn" style="margin-top:12px" onclick="go('pay','${c.id}')">Pay ${fmt(c.amount)} for cycle ${c.cycle}</button>`:`<div class="pill ok" style="margin-top:12px">Your cycle ${c.cycle} contribution is recorded</div>`}
+    </div>
+    <div class="card">
+      <div class="sec-head"><h2>Payout schedule</h2><span class="pill gold">Your slot: ${slot}</span></div>
+      <p class="small muted" style="margin:4px 0 8px">Fixed when the circle launched on ${dlabel(cycleDate(c,1))}. Nobody can change it.</p>
+      <div class="sched">${sched}</div>
+    </div>
+    <div class="card">
+      <h2>Payment ledger</h2>
+      <p class="small muted" style="margin:4px 0 10px">Every member sees the same record.</p>
+      <div class="gridwrap"><table class="ledger num"><thead><tr><th></th>${head}</tr></thead><tbody>${rows}</tbody></table></div>
+      <div class="legend"><span><i class="dot paid"></i>Paid</span><span><i class="dot late"></i>Paid late</span><span><i class="dot due"></i>Due</span><span><i class="dot recv"></i>Receives payout</span></div>
+    </div>
+    <div class="card">
+      <h2>Safeguards</h2>
+      <div class="kv"><span class="muted">Deposit held per member</span><b class="num">${fmt(c.amount)}</b></div>
+      <div class="kv"><span class="muted">Jamiya fee per cycle</span><b class="num">${c.feePct}% · ${fmt(c.amount*c.feePct/100)}</b></div>
+      <div class="kv"><span class="muted">Late payment</span><b>Deposit covers it, score drops</b></div>
+      <div class="kv"><span class="muted">Payout guarantee</span><b>None. Members carry the risk</b></div>
+    </div>
+    <p class="note"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 7v4M8 5v.5"/></svg>Deposits are returned after the final cycle. If a member stops paying, their deposit funds the current payout and they lose their slot.</p>`;
+}
+
+function renderCreate(el){
+  el.innerHTML=`
+    <h1>Start a circle</h1>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div class="field"><label for="c-name">Circle name</label><input id="c-name" value="Cousins 2027" oninput="calc()"></div>
+      <div class="two">
+        <div class="field"><label for="c-amt">Contribution (AED)</label><input id="c-amt" type="number" value="1500" oninput="calc()"></div>
+        <div class="field"><label for="c-n">Members</label><input id="c-n" type="number" value="8" min="3" max="24" oninput="calc()"></div>
+      </div>
+      <div class="field"><label>Frequency</label><div class="seg" id="c-freq"><button class="on" onclick="seg(this)">Monthly</button><button onclick="seg(this)">Every 2 weeks</button><button onclick="seg(this)">Weekly</button></div></div>
+      <div class="field"><label for="c-start">First payment date</label><input id="c-start" type="date" value="2026-11-01" oninput="calc()"></div>
+      <div class="field"><label>Payout order (fixed at launch)</label><div class="seg" id="c-order"><button class="on" onclick="seg(this)">Shuffle at launch</button><button onclick="seg(this)">I assign slots</button></div></div>
+    </div>
+    <div class="summary" id="c-sum"></div>
+    <p class="note"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 7v4M8 5v.5"/></svg>Members with a trust score under 60 are placed in the second half of the order. Everyone pays one contribution as a deposit before launch.</p>
+    <button class="btn" onclick="created()">Create and get invite link</button>
+    <div id="c-done"></div>`;
+  calc();
+}
+function seg(b){b.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');calc();}
+function calc(){
+  const a=+document.getElementById('c-amt').value||0,n=+document.getElementById('c-n').value||0;
+  const f=document.querySelector('#c-freq .on').textContent;const per={Monthly:'month','Every 2 weeks':'2 weeks',Weekly:'week'}[f];
+  const s=new Date(document.getElementById('c-start').value||'2026-11-01');const end=new Date(s);
+  if(f==='Monthly')end.setMonth(end.getMonth()+n-1);else end.setDate(end.getDate()+(f==='Weekly'?7:14)*(n-1));
+  document.getElementById('c-sum').innerHTML=`
+    <p class="eyebrow" style="color:var(--accent)">What everyone gets</p>
+    <div class="kv"><span>Payout per slot</span><b class="num">${fmt(a*n)}</b></div>
+    <div class="kv"><span>Each member pays</span><b class="num">${fmt(a)} per ${per} × ${n}</b></div>
+    <div class="kv"><span>Deposit at join</span><b class="num">${fmt(a)}, returned at the end</b></div>
+    <div class="kv"><span>Jamiya fee</span><b class="num">1% · ${fmt(Math.round(a/100))} per payment</b></div>
+    <div class="kv"><span>Runs</span><b>${dlabel(s)} to ${dlabel(end)}</b></div>`;
+}
+function created(){
+  const name=document.getElementById('c-name').value||'Your circle';
+  document.getElementById('c-done').innerHTML=`<div class="card" style="border-color:var(--accent)"><h3>${name} is ready to fill</h3><p class="small muted" style="margin:4px 0 10px">Share this code. The circle launches and the order is fixed once every slot is taken and every deposit is in.</p>
+    <div class="kv" style="border:0;padding:0"><b class="num" style="font-family:Sora,sans-serif;font-size:22px;letter-spacing:.06em">JMY-4K2T</b><button class="btn secondary" style="width:auto;padding:8px 14px" onclick="toast('Invite link copied')">Copy link</button></div></div>`;
+  toast('Circle created');
+}
+
+let method='card';
+function renderPay(el,id){
+  const c=circles.find(x=>x.id===id);const fee=c.amount*c.feePct/100;
+  el.innerHTML=`
+    <button class="back" onclick="go('circle','${c.id}')">‹ ${c.name}</button>
+    <div><p class="eyebrow">Cycle ${c.cycle} of ${c.order.length} · due ${dlabel(cycleDate(c,c.cycle))}</p><h1>Pay your contribution</h1></div>
+    <div class="card">
+      <div class="kv"><span class="muted">Contribution</span><b class="num">${fmt(c.amount)}</b></div>
+      <div class="kv"><span class="muted">Jamiya fee (${c.feePct}%)</span><b class="num">${fmt(fee)}</b></div>
+      <div class="kv"><span class="muted">Goes to</span><b>${c.order[c.cycle-1]} (slot ${c.cycle})</b></div>
+      <div class="kv" style="font-size:17px"><span>Total</span><b class="num">${fmt(c.amount+fee)}</b></div>
+    </div>
+    <div class="list">
+      <p class="eyebrow">Pay with</p>
+      <button class="method ${method==='card'?'on':''}" onclick="method='card';go('pay','${c.id}')"><span class="box">VISA</span><span><div style="font-weight:600">Card ending 4821</div><div class="small muted">Instant</div></span></button>
+      <button class="method ${method==='bank'?'on':''}" onclick="method='bank';go('pay','${c.id}')"><span class="box">BANK</span><span><div style="font-weight:600">Bank transfer (Aani)</div><div class="small muted">No card fee</div></span></button>
+    </div>
+    <button class="btn" id="pay-btn" onclick="doPay('${c.id}')">Pay ${fmt(c.amount+fee)}</button>
+    <p class="small muted" style="text-align:center">Recorded on the shared ledger the moment it clears.</p>`;
+}
+function doPay(id){
+  const b=document.getElementById('pay-btn');b.textContent='Processing…';b.disabled=true;
+  setTimeout(()=>{paidNow[id]=true;const c=circles.find(x=>x.id===id);const fee=c.amount*c.feePct/100;
+    document.getElementById('s-pay').innerHTML=`
+      <div class="success">
+        <div class="check"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></div>
+        <h1>Paid</h1>
+        <p class="muted">${fmt(c.amount+fee)} recorded for cycle ${c.cycle} of ${c.name}.</p>
+        <div class="card receipt">
+          <div class="kv"><span class="muted">Reference</span><b class="num">JMY-${c.cycle}-${Math.floor(Math.random()*9e4+1e4)}</b></div>
+          <div class="kv"><span class="muted">Time</span><b>${dlabel(TODAY)}, 09:14</b></div>
+          <div class="kv"><span class="muted">Your next payout</span><b class="num">${fmt(pot(c))} on ${dlabel(cycleDate(c,mySlot(c)))}</b></div>
+        </div>
+        <button class="btn" onclick="go('circle','${c.id}')">View ledger</button>
+        <button class="btn ghost" onclick="go('home')">Back to home</button>
+      </div>`;},900);
+}
+go('home');
+</script>
