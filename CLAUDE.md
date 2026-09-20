@@ -26,6 +26,10 @@ sees the same ledger and the full payout schedule from day one.
   payment ledger grid, safeguards), create circle (live summary, invite code), pay flow
   (fee breakdown, method, success receipt that updates the ledger).
 - Published artifact: https://claude.ai/artifact/M7ExTjiN5qcNMsFjgNx7uv
+- Public phone URL (GitHub Pages, free, no login): https://chalychaplin.github.io/jamiya/
+  Served from `index.html` (the prototype wrapped in a full HTML skeleton). Repo:
+  github.com/ChalyChaplin/jamiya, public. Edit `jamiya-prototype.html`, regenerate
+  `index.html`, push main, Pages rebuilds in about a minute.
 - Design tokens: green accent (#0E6B54), gold reserved for the user's own payout,
   semantic paid/due/late colors separate from the accent. Sora headings, IBM Plex Sans body.
 
